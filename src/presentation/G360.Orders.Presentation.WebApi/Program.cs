@@ -3,9 +3,11 @@ using FastEndpoints;
 using FastEndpoints.Swagger;
 using G360.Orders.Domain.Entities;
 using G360.Orders.Domain.Interfaces;
+using G360.Orders.Application.Services;
 using G360.Orders.Infrastructure.Data;
 using G360.Orders.Infrastructure.Interceptors;
 using G360.Orders.Infrastructure.Repositories;
+using G360.Orders.Infrastructure.Services;
 using G360.Orders.Presentation.WebApi.GraphQL;
 using G360.Orders.Presentation.WebApi.Helpers;
 using G360.Orders.Presentation.WebApi.Middleware;
@@ -47,7 +49,9 @@ builder.Services.AddScoped<IRepository<PizzaDetail>, PizzaDetailRepository>();
 builder.Services.AddScoped<IPizzaDetailRepository, PizzaDetailRepository>();
 builder.Services.AddScoped<IRepository<Ingredient>, IngredientRepository>();
 builder.Services.AddScoped<IRepository<Category>, CategoryRepository>();
+builder.Services.AddScoped<IDataImportService, CsvDataImportService>();
 builder.Services.AddScoped<IInsightsRepository, InsightsRepository>();
+
 builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(G360.Orders.Application.Queries.GetOrdersQuery).Assembly));
 builder.Services.AddAutoMapper(typeof(G360.Orders.Application.Mapping.OrderMappingProfile).Assembly);
 
