@@ -47,6 +47,7 @@ builder.Services.AddScoped<IRepository<PizzaDetail>, PizzaDetailRepository>();
 builder.Services.AddScoped<IPizzaDetailRepository, PizzaDetailRepository>();
 builder.Services.AddScoped<IRepository<Ingredient>, IngredientRepository>();
 builder.Services.AddScoped<IRepository<Category>, CategoryRepository>();
+builder.Services.AddScoped<IInsightsRepository, InsightsRepository>();
 builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(G360.Orders.Application.Queries.GetOrdersQuery).Assembly));
 builder.Services.AddAutoMapper(typeof(G360.Orders.Application.Mapping.OrderMappingProfile).Assembly);
 
@@ -73,6 +74,7 @@ builder.Services.AddGraphQLServer()
     .AddTypeExtension<IngredientQuery>()
     .AddTypeExtension<CategoryQuery>()
     .AddTypeExtension<PizzaTypeQuery>()
+    .AddTypeExtension<InsightsQuery>()
     .AddMutationType<OrderMutation>(d => d.Name("Mutation"))
     .AddTypeExtension<PizzaMutation>()
     .AddTypeExtension<IngredientMutation>()
