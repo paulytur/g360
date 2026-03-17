@@ -94,6 +94,12 @@ builder.Services.AddCors(o => o.AddDefaultPolicy(policy =>
 
 var app = builder.Build();
 
+using (var scope = app.Services.CreateScope())
+{
+    var db = scope.ServiceProvider.GetRequiredService<OrdersDbContext>();
+    await db.Database.MigrateAsync();
+}
+
 app.UseCors();
 app.UseHttpsRedirection();
 app.UseMiddleware<AuditUserMiddleware>();
@@ -111,4 +117,4 @@ app.MapScalarApiReference(options =>
 });
 
 app.MapGraphQL();
-app.Run();
+await app.RunAsync();
